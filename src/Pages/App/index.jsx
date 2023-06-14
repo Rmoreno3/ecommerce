@@ -1,10 +1,13 @@
 import { useRoutes, BrowserRouter } from "react-router-dom";
+//  PAGES
 import Home from "../Home";
 import MyAccount from "../MyAccount";
 import MyOrder from "../MyOrder";
 import MyOrders from "../MyOrders";
 import SingIn from "../SingIn";
 import NotFound from "../NotFound";
+// COMPONENTS
+import NavBar from "../../Components/NavBar";
 import "./App.css";
 
 const AppRoutes = () => {
@@ -21,9 +24,10 @@ const AppRoutes = () => {
 };
 
 function App() {
-  return ( 
+  return (
     <BrowserRouter>
       <AppRoutes />
+      <NavBar />
     </BrowserRouter>
   );
 }
