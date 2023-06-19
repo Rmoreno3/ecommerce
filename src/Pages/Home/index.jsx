@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
+// COMPONENTS
 import Card from "../../Components/Card";
+import ProductDetail from "../../Components/ProductDetail";
 const API = "https://api.escuelajs.co/api/v1/products";
 
 function Home() {
@@ -19,11 +21,14 @@ function Home() {
   }, []);
 
   return (
-    <div className="grid gap-4 grid-cols-4 w-full max-w-screen-lg">
-      {product?.map((product) => (
-        <Card key={product.id} data={product} />
-      ))}
-    </div>
+    <>
+      <div className="grid gap-4 grid-cols-3 w-full max-w-screen-md">
+        {product?.map((product) => (
+          <Card key={product.id} data={product} />
+        ))}
+      </div>
+      <ProductDetail />
+    </>
   );
 }
 
