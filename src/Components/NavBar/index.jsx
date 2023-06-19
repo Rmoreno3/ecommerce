@@ -1,3 +1,4 @@
+import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { ShoppingCartContext } from "../../Context";
@@ -87,7 +88,10 @@ export default function NavBar() {
             Sing In
           </NavLink>
         </li>
-        <li>🛒{context.count}</li>
+        <li className="flex justify-center items-center">
+          <ShoppingCartIcon className="w-5 h-5" />
+          {context.count}
+        </li>
       </ul>
     </nav>
   );

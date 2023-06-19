@@ -1,3 +1,4 @@
+import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import { useContext } from "react";
 import { ShoppingCartContext } from "../../Context";
 
@@ -19,7 +20,7 @@ export default function Card(data) {
           className="absolute top-0 right-0 flex justify-center items-center bg-white w-6 rounded-full m-2"
           onClick={() => context.setCount(context.count + 1)}
         >
-          +
+          <PlusCircleIcon className="w-6 h-6" />
         </button>
       </figure>
       <div className="flex justify-between items-center bg-slate-300/50 rounded-b-lg p-2">
