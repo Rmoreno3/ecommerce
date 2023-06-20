@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 // COMPONENTS
 import Card from "../../Components/Card";
 import ProductDetail from "../../Components/ProductDetail";
-const API = "https://api.escuelajs.co/api/v1/products";
+const API = "https://fakestoreapi.com/products";
 
 function Home() {
-  const [product, setProduct] = useState(null);
+  const [product, setProduct] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -13,6 +13,7 @@ function Home() {
         const response = await fetch(API);
         const data = await response.json();
         setProduct(data);
+        // console.log(data.title);
       } catch (error) {
         console.log(error);
       }
