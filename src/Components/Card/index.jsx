@@ -1,4 +1,4 @@
-import { PlusCircleIcon } from "@heroicons/react/24/outline";
+import { PlusIcon } from "@heroicons/react/24/outline";
 import { useContext } from "react";
 import { ShoppingCartContext } from "../../Context";
 
@@ -6,7 +6,10 @@ export default function Card(data) {
   const context = useContext(ShoppingCartContext);
 
   return (
-    <div className="bg-white cursor-pointer w-56 h-60 rounded-lg shadow-xl">
+    <div
+      className="bg-white cursor-pointer w-56 h-60 rounded-lg shadow-xl"
+      onClick={() => context.openProductDetail()}
+    >
       <figure className="relative h-5/6">
         <span className="absolute bottom-0 left-0 bg-white/60 rounded-lg text-black text-xs font-light m-1 p-1">
           {data.data.category.name}
@@ -17,10 +20,10 @@ export default function Card(data) {
           alt={`${data.data.title}`}
         />
         <button
-          className="absolute top-0 right-0 flex justify-center items-center bg-white w-6 rounded-full m-2"
+          className="absolute top-0 right-0 bg-white w-6 rounded-full m-2"
           onClick={() => context.setCount(context.count + 1)}
         >
-          <PlusCircleIcon className="w-6 h-6" />
+          <PlusIcon className="w-6 h-6" />
         </button>
       </figure>
       <div className="flex justify-between items-center bg-slate-300/50 rounded-b-lg p-2">
