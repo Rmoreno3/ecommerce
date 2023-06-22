@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 // COMPONENTS
 import Card from "../../Components/Card";
 import ProductDetail from "../../Components/ProductDetail";
-const API = "https://fakestoreapi.com/products";
+const API = "https://api.escuelajs.co/api/v1/products";
 
 function Home() {
   const [product, setProduct] = useState([]);

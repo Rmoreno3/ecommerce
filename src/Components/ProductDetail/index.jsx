@@ -3,7 +3,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { ShoppingCartContext } from "../../Context";
 export default function ProductDetail() {
   const context = useContext(ShoppingCartContext);
-  const { image, title, price, description } = context.productToShow;
+  const { images, title, price, description } = context.productToShow;
 
   return (
     <aside
@@ -22,7 +22,7 @@ export default function ProductDetail() {
       </div>
       <div className="p-6">
         <figure className="flex justify-center w-full shadow-xl rounded-lg">
-          <img className="h-40" src={image} alt={title} />
+          <img className="h-40" src={images} alt={title} />
         </figure>
         <div className="flex flex-col">
           <span className="font-medium text-2xl mt-5">${price}</span>
