@@ -21,7 +21,7 @@ export default function ProductDetail() {
         </button>
       </div>
       <div className="p-6">
-        <figure className="flex justify-center w-full">
+        <figure className="flex justify-center w-full shadow-xl rounded-lg">
           <img className="h-40" src={image} alt={title} />
         </figure>
         <div className="flex flex-col">

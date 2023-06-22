@@ -11,6 +11,12 @@ export default function Card(data) {
     context.setProductToShow(productDetail);
   };
 
+  const addProductToCart = (productData) => {
+    context.setCount(context.count + 1);
+    context.setCartProducts([...context.cartProducts, productData]);
+    console.log(context.cartProducts);
+  };
+
   return (
     <div
       className="flex flex-col justify-between cursor-pointer w-56 h-61 rounded-lg shadow-xl"
@@ -27,7 +33,7 @@ export default function Card(data) {
         />
         <button
           className="absolute top-0 right-0 bg-white w-6 rounded-full m-2"
-          onClick={() => context.setCount(context.count + 1)}
+          onClick={() => addProductToCart(data.data)}
         >
           <PlusIcon className="w-6 h-6" />
         </button>

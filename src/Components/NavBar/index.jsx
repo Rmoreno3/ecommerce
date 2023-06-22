@@ -89,7 +89,7 @@ export default function NavBar() {
           </NavLink>
         </li>
         <li className="flex justify-center items-center">
-          <ShoppingCartIcon className="w-5 h-5" />
+          <ShoppingCartIcon className="w-5 h-5 mr-1" />
           {context.count}
         </li>
       </ul>
