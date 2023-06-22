@@ -9,11 +9,14 @@ export default function Card(data) {
   const showProduct = (productDetail) => {
     context.openProductDetail();
     context.setProductToShow(productDetail);
+    context.closeCheckoutSideMenu();
   };
 
-  const addProductToCart = (productData) => {
+  const addProductToCart = (event, productData) => {
+    event.stopPropagation();
     context.setCount(context.count + 1);
     context.setCartProducts([...context.cartProducts, productData]);
+    context.openCheckoutSideMenu();
     console.log(context.cartProducts);
   };
 
@@ -33,7 +36,7 @@ export default function Card(data) {
         />
         <button
           className="absolute top-0 right-0 bg-white w-6 rounded-full m-2"
-          onClick={() => addProductToCart(data.data)}
+          onClick={(event) => addProductToCart(event, data.data)}
         >
           <PlusIcon className="w-6 h-6" />
         </button>

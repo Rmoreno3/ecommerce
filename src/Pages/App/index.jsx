@@ -10,6 +10,7 @@ import SingIn from "../SingIn";
 import NotFound from "../NotFound";
 // COMPONENTS
 import NavBar from "../../Components/NavBar";
+import CheckoutSideMenu from "../../Components/CheckoutSideMenu";
 import "./App.css";
 
 const AppRoutes = () => {
@@ -31,6 +32,7 @@ function App() {
       <BrowserRouter>
         <AppRoutes />
         <NavBar />
+        <CheckoutSideMenu />
       </BrowserRouter>
     </ShoppingCartProvider>
   );
