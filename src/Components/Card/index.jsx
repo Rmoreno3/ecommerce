@@ -1,4 +1,4 @@
-import { PlusIcon } from "@heroicons/react/24/outline";
+import { PlusIcon, CheckIcon } from "@heroicons/react/24/outline";
 import { useContext } from "react";
 import { ShoppingCartContext } from "../../Context";
 
@@ -15,21 +15,35 @@ export default function Card(data) {
     event.stopPropagation();
     context.setCount(context.count + 1);
 
-    const productExists = context.cartProducts.some(
-      (cartItem) => cartItem.id === productData.id
-    );
-
-    if (productExists) {
-      const productCart = context.cartProducts.find(
-        (cartItem) => cartItem.id === productData.id
-      );
-      productCart.quantity += 1;
-    } else {
-      productData.quantity = 1;
-    }
-
     context.setCartProducts([...context.cartProducts, productData]);
     context.openCheckoutSideMenu();
+  };
+
+  const renderIcon = (id) => {
+    const isInCart =
+      context.cartProducts.filter((product) => product.id === id).length > 0;
+
+    if (isInCart) {
+      return (
+        <button
+          className="absolute top-0 right-0 bg-black w-6 rounded-full m-2"
+          onClick={(event) => {
+            event.stopPropagation(), context.openCheckoutSideMenu();
+          }}
+        >
+          <CheckIcon className="w-6 h-6 text-white" />
+        </button>
+      );
+    } else {
+      return (
+        <button
+          className="absolute top-0 right-0 bg-white w-6 rounded-full m-2"
+          onClick={(event) => addProductToCart(event, data.data)}
+        >
+          <PlusIcon className="w-6 h-6" />
+        </button>
+      );
+    }
   };
 
   return (
@@ -46,12 +60,7 @@ export default function Card(data) {
           src={data.data.images[0]}
           alt={`${data.data.title}`}
         />
-        <button
-          className="absolute top-0 right-0 bg-white w-6 rounded-full m-2"
-          onClick={(event) => addProductToCart(event, data.data)}
-        >
-          <PlusIcon className="w-6 h-6" />
-        </button>
+        {renderIcon(data.data.id)}
       </figure>
       <div className="flex justify-between items-center bg-slate-300/50 rounded-b-lg p-2">
         <span className="text-sm truncate font-light">{data.data.title}</span>

@@ -6,6 +6,13 @@ import OrderCard from "../OrderCard";
 export default function CheckoutSideMenu() {
   const context = useContext(ShoppingCartContext);
 
+  const handleDelete = (id) => {
+    const filteredProducts = context.cartProducts.filter(
+      (product) => product.id !== id
+    );
+    context.setCartProducts(filteredProducts);
+  };
+
   return (
     <aside
       className={`${
@@ -24,10 +31,11 @@ export default function CheckoutSideMenu() {
       {context.cartProducts.map((product) => (
         <OrderCard
           key={product.id}
+          id={product.id}
           title={product.title}
           price={product.price}
           images={product.images}
-          quantity={product.quantity}
+          handleDelete={handleDelete}
         />
       ))}
     </aside>
