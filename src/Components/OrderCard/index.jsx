@@ -19,10 +19,10 @@ export default function OrderCard(props) {
       </div>
       <div className="flex gap-2 items-center">
         <p className="text-lg font-bold">{price}</p>
-        <XMarkIcon
+        {handleDelete &&  <XMarkIcon
           className="w-6 h-6 cursor-pointer"
           onClick={() => handleDelete(id)}
-        />
+        />}       
       </div>
     </div>
   );
