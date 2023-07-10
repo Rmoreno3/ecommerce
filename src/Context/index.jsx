@@ -7,6 +7,7 @@ export const ShoppingCartProvider = ({ children }) => {
   // GET Products
   const API = "https://api.escuelajs.co/api/v1/products";
   const [product, setProduct] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,6 +25,19 @@ export const ShoppingCartProvider = ({ children }) => {
 
   // GET Producrs by SerachTitleBar
   const [searchTitleBar, setSearchTitleBar] = useState("")
+
+  const handleClearSearch = () => {
+    setSearchTitleBar("")
+  }
+
+  const FilteredProductsByTitle = (product, searchTitleBar) => {
+    return product?.filter(product => product.title.toLowerCase().includes(searchTitleBar.toLowerCase()))
+  }
+
+  useEffect(() => {
+    if (searchTitleBar) setFilteredProducts(FilteredProductsByTitle(product, searchTitleBar))
+  }, [product, searchTitleBar])
+
 
   const Search = (event) => {
     setSearchTitleBar(event.target.value)
@@ -59,6 +73,8 @@ export const ShoppingCartProvider = ({ children }) => {
         setProduct,
         searchTitleBar,
         Search,
+        handleClearSearch,
+        filteredProducts,
         count,
         setCount,
         isProductDetailOpen,
