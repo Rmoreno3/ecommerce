@@ -1,9 +1,28 @@
 /* eslint-disable react/prop-types */
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 export const ShoppingCartContext = createContext();
 
 export const ShoppingCartProvider = ({ children }) => {
+  // GET Products
+  const API = "https://api.escuelajs.co/api/v1/products";
+  const [product, setProduct] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(API);
+        const data = await response.json();
+        setProduct(data);
+        // console.log(data.title);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+
   // Shopping cart - Imcrement quantity
   const [count, setCount] = useState(0);
 
@@ -30,6 +49,8 @@ export const ShoppingCartProvider = ({ children }) => {
   return (
     <ShoppingCartContext.Provider
       value={{
+        product,
+        setProduct,
         count,
         setCount,
         isProductDetailOpen,
