@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 
 export default function OrderCard(props) {
   const { id, title, price, images, quantity, handleDelete } = props;
@@ -18,6 +19,7 @@ export default function OrderCard(props) {
         <p className="text-sm font-light">{title}</p>
       </div>
       <div className="flex gap-2 items-center">
+        <CurrencyDollarIcon className="w-6 h-6" />
         <p className="text-lg font-bold">{price}</p>
         {handleDelete &&  <XMarkIcon
           className="w-6 h-6 cursor-pointer"

@@ -18,14 +18,13 @@ export default function CheckoutSideMenu() {
 
   const handleCheckout = () => {
     const orderToAdd = {
-      date: new Date().toLocaleString(),
+      date: new Date().toLocaleDateString(),
       products: context.cartProducts,
       totalProducts: context.cartProducts.length,
       totalPrice: totalPrice(context.cartProducts),
     }
 
     context.setOrder([...context.order, orderToAdd]);
-    console.log(orderToAdd)
     context.setCartProducts([]);
     context.setCount(0)
     context.closeCheckoutSideMenu()
