@@ -34,7 +34,8 @@ function Home() {
       <div className="m-4 flex relative items-center">
         <input 
           className="border border-black rounded-lg w-80 p-4 mb-4 focus:outline-none relative" 
-          type="text" 
+          type="text"
+          value={context.searchTitleBar}
           placeholder="Search"
           onChange={context.Search}
         />
