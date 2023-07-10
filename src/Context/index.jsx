@@ -22,6 +22,12 @@ export const ShoppingCartProvider = ({ children }) => {
     fetchData();
   }, []);
 
+  // GET Producrs by SerachTitleBar
+  const [searchTitleBar, setSearchTitleBar] = useState("")
+
+  const Search = (event) => {
+    setSearchTitleBar(event.target.value)
+  }
 
   // Shopping cart - Imcrement quantity
   const [count, setCount] = useState(0);
@@ -51,6 +57,8 @@ export const ShoppingCartProvider = ({ children }) => {
       value={{
         product,
         setProduct,
+        searchTitleBar,
+        Search,
         count,
         setCount,
         isProductDetailOpen,
