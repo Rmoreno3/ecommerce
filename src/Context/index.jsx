@@ -1,7 +1,26 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { createContext, useState, useEffect } from 'react';
 
 export const ShoppingCartContext = createContext();
+
+export const initializeLocalStorage = () => {
+	const accountInLocalStorage = localStorage.getItem('account');
+	const singOutInLocalStorage = localStorage.getItem('sing-out');
+
+	let parsedAccount;
+	let parsedSingOut;
+
+	if (!accountInLocalStorage || !singOutInLocalStorage) {
+		localStorage.setItem('account', JSON.stringify({}));
+		localStorage.setItem('sing-out', JSON.stringify(false));
+		parsedAccount = {};
+		parsedSingOut = false;
+	} else {
+		parsedAccount = JSON.parse(accountInLocalStorage);
+		parsedSingOut = JSON.parse(singOutInLocalStorage);
+	}
+};
 
 export const ShoppingCartProvider = ({ children }) => {
 	// GET Products
@@ -43,6 +62,12 @@ export const ShoppingCartProvider = ({ children }) => {
 		if (searchTitleBar)
 			setFilteredProducts(FilteredProductsByTitle(product, searchTitleBar));
 	}, [product, searchTitleBar]);
+
+	// MY ACCOUNT
+	const [account, setAccount] = useState({});
+
+	// SING OUT
+	const [singOut, setSingOut] = useState(false);
 
 	// Shopping cart - Imcrement quantity
 	const [count, setCount] = useState(0);
@@ -89,6 +114,10 @@ export const ShoppingCartProvider = ({ children }) => {
 				setCartProducts,
 				order,
 				setOrder,
+				account,
+				setAccount,
+				singOut,
+				setSingOut,
 			}}
 		>
 			{children}

@@ -7,6 +7,64 @@ export default function NavBar() {
 	const activeStyle = 'underline underline-offset-4 text-slate-500';
 	const context = useContext(ShoppingCartContext);
 
+	// SING OUT
+	const singOut = localStorage.getItem('sing-out');
+	const parsedSingOut = JSON.parse(singOut);
+	const isUserSingOut = context.singOut || parsedSingOut;
+
+	const handleSingOut = () => {
+		const stringifiedSingOut = JSON.stringify(true);
+		localStorage.setItem('sing-out', stringifiedSingOut);
+		context.setSingOut(true);
+	};
+
+	const renderView = () => {
+		if (isUserSingOut) {
+			return (
+				<li>
+					<NavLink
+						to='/sing-in'
+						className={({ isActive }) => (isActive ? activeStyle : undefined)}
+						onClick={() => handleSingOut()}
+					>
+						Sing Out
+					</NavLink>
+				</li>
+			);
+		} else {
+			return (
+				<>
+					<li className='text-black/60'>rmoreno3131@gmail.com</li>
+					<li>
+						<NavLink
+							to='/my-orders'
+							className={({ isActive }) => (isActive ? activeStyle : undefined)}
+						>
+							My Orders
+						</NavLink>
+					</li>
+					<li>
+						<NavLink
+							to='/my-account'
+							className={({ isActive }) => (isActive ? activeStyle : undefined)}
+						>
+							My Account
+						</NavLink>
+					</li>
+					<li>
+						<NavLink
+							to='/sing-in'
+							className={({ isActive }) => (isActive ? activeStyle : undefined)}
+							onClick={() => handleSingOut()}
+						>
+							Sing Out
+						</NavLink>
+					</li>
+				</>
+			);
+		}
+	};
+
 	return (
 		<nav className='flex justify-between items-center fixed z-10 top-0 w-full py-5 px-8 text-sm font-light shadow-md'>
 			<ul className='flex items-center gap-2'>
@@ -63,31 +121,7 @@ export default function NavBar() {
 				</li>
 			</ul>
 			<ul className='flex items-center gap-2'>
-				<li className='text-black/60'>rmoreno3131@gmail.com</li>
-				<li>
-					<NavLink
-						to='/my-orders'
-						className={({ isActive }) => (isActive ? activeStyle : undefined)}
-					>
-						My Orders
-					</NavLink>
-				</li>
-				<li>
-					<NavLink
-						to='/my-account'
-						className={({ isActive }) => (isActive ? activeStyle : undefined)}
-					>
-						My Account
-					</NavLink>
-				</li>
-				<li>
-					<NavLink
-						to='/sing-in'
-						className={({ isActive }) => (isActive ? activeStyle : undefined)}
-					>
-						Sing In
-					</NavLink>
-				</li>
+				{renderView()}
 				<li className='flex justify-center items-center'>
 					<ShoppingCartIcon className='w-5 h-5 mr-1' />
 					{context.count}
