@@ -79,7 +79,7 @@ export default function NavBar() {
 	};
 
 	return (
-		<nav className='flex justify-between items-center fixed z-10 top-0 w-full py-5 px-8 text-sm font-light shadow-md'>
+		<nav className='flex justify-between items-center fixed z-10 top-0 w-full py-5 px-8 text-sm font-light shadow-md bg-white'>
 			<ul className='flex items-center gap-2'>
 				<li className='font-semibold text-lg'>
 					<NavLink to={`${isUserSingOut ? '/sing-in' : '/'}`}>Amazon</NavLink>
