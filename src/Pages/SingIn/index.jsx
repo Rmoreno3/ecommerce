@@ -1,6 +1,6 @@
 import { useContext, useState, useRef } from 'react';
 import { ShoppingCartContext } from '../../Context/';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 function SingIn() {
 	const context = useContext(ShoppingCartContext);
@@ -20,6 +20,17 @@ function SingIn() {
 		: true;
 	const hasUserAnAccount = !noAccountInLocalState || !noAccountInLocalStorage;
 
+	// HAS SIG IN
+	const handleSingIn = () => {
+		const stringifiedSingOut = JSON.stringify(false);
+		localStorage.setItem('sing-out', stringifiedSingOut);
+		context.setSingOut(false);
+
+		// REDIRECT
+		return <Navigate replace to={'/'} />;
+	};
+
+	// CREATE AN ACCOUNT
 	const createAnAccount = () => {
 		const formData = new FormData(form.current);
 		const data = {
@@ -27,9 +38,17 @@ function SingIn() {
 			email: formData.get('email'),
 			password: formData.get('password'),
 		};
-		console.log(data);
+
+		// CREATE ACCOUNT IN LOCALSTORAGE AND LOCALSTATE
+		const stringifiedAccount = JSON.stringify(data);
+		localStorage.setItem('account', stringifiedAccount);
+		context.setAccount(data);
+
+		// SIGN IN
+		handleSingIn();
 	};
 
+	// LOGIN VIEW
 	const renderLogin = () => {
 		return (
 			<div className='flex flex-col w-80'>
@@ -45,6 +64,7 @@ function SingIn() {
 					<button
 						className='bg-black disabled:bg-black/40 text-white w-full rounded-lg py-3 mt-4 mb-2'
 						disabled={!hasUserAnAccount}
+						onClick={() => handleSingIn()}
 					>
 						Login
 					</button>
@@ -65,6 +85,7 @@ function SingIn() {
 		);
 	};
 
+	// CREATE USER VIEW
 	const renderCreateUserInfo = () => {
 		return (
 			<form ref={form} className='flex flex-col gap-4 w-80'>
