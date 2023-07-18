@@ -1,10 +1,11 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useRef } from 'react';
 import { ShoppingCartContext } from '../../Context/';
 import { Link } from 'react-router-dom';
 
 function SingIn() {
 	const context = useContext(ShoppingCartContext);
 	const [view, setView] = useState('user-info');
+	const form = useRef(null);
 
 	// ACOUNT
 	const account = localStorage.getItem('account');
@@ -18,6 +19,16 @@ function SingIn() {
 		? Object.keys(context.account).length === 0
 		: true;
 	const hasUserAnAccount = !noAccountInLocalState || !noAccountInLocalStorage;
+
+	const createAnAccount = () => {
+		const formData = new FormData(form.current);
+		const data = {
+			name: formData.get('name'),
+			email: formData.get('email'),
+			password: formData.get('password'),
+		};
+		console.log(data);
+	};
 
 	const renderLogin = () => {
 		return (
@@ -56,10 +67,55 @@ function SingIn() {
 
 	const renderCreateUserInfo = () => {
 		return (
-			<>
-				<div>crear usuario</div>
-				{/* <button onClick={() => setView('user-info')}>login</button> */}
-			</>
+			<form ref={form} className='flex flex-col gap-4 w-80'>
+				<div className='flex flex-col gap-1'>
+					<label htmlFor='name' className='font-liht text-sm'>
+						Your Name:
+					</label>
+					<input
+						type='text'
+						id='name'
+						name='name'
+						defaultValue={parsedAccount?.name}
+						placeholder='Your Name'
+						className='rounded-l border border-black placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4'
+					/>
+				</div>
+				<div className='flex flex-col gap-1'>
+					<label htmlFor='email' className='font-liht text-sm'>
+						Your Email:
+					</label>
+					<input
+						type='email'
+						id='email'
+						name='email'
+						defaultValue={parsedAccount?.email}
+						placeholder='Your Email'
+						className='rounded-l border border-black placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4'
+					/>
+				</div>
+				<div className='flex flex-col gap-1'>
+					<label htmlFor='password' className='font-liht text-sm'>
+						Password:
+					</label>
+					<input
+						type='password'
+						id='password'
+						name='password'
+						defaultValue={parsedAccount?.password}
+						placeholder='Password'
+						className='rounded-l border border-black placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4'
+					/>
+				</div>
+				<Link to='/'>
+					<button
+						className='bg-black text-white w-full rounded-lg py-3 '
+						onClick={() => createAnAccount()}
+					>
+						Create
+					</button>
+				</Link>
+			</form>
 		);
 	};
 
