@@ -12,6 +12,19 @@ export default function NavBar() {
 	const parsedSingOut = JSON.parse(singOut);
 	const isUserSingOut = context.singOut || parsedSingOut;
 
+	// ACCOUNT
+	const account = localStorage.getItem('account');
+	const parsedAccount = JSON.parse(account);
+
+	// HAS ACCOUNT
+	const noAccountInLocalStorage = parsedAccount
+		? Object.keys(parsedAccount).length === 0
+		: true;
+	const noAccountInLocalState = context.account
+		? Object.keys(context.account).length === 0
+		: true;
+	const hasUserAnAccount = !noAccountInLocalState || !noAccountInLocalStorage;
+
 	const handleSingOut = () => {
 		const stringifiedSingOut = JSON.stringify(true);
 		localStorage.setItem('sing-out', stringifiedSingOut);
@@ -19,19 +32,7 @@ export default function NavBar() {
 	};
 
 	const renderView = () => {
-		if (isUserSingOut) {
-			return (
-				<li>
-					<NavLink
-						to='/sing-in'
-						className={({ isActive }) => (isActive ? activeStyle : undefined)}
-						onClick={() => handleSingOut()}
-					>
-						Sing Out
-					</NavLink>
-				</li>
-			);
-		} else {
+		if (hasUserAnAccount && !isUserSingOut) {
 			return (
 				<>
 					<li className='text-black/60'>rmoreno3131@gmail.com</li>
@@ -62,6 +63,18 @@ export default function NavBar() {
 					</li>
 				</>
 			);
+		} else {
+			return (
+				<li>
+					<NavLink
+						to='/sing-in'
+						className={({ isActive }) => (isActive ? activeStyle : undefined)}
+						onClick={() => handleSingOut()}
+					>
+						Sign in
+					</NavLink>
+				</li>
+			);
 		}
 	};
 
@@ -69,7 +82,7 @@ export default function NavBar() {
 		<nav className='flex justify-between items-center fixed z-10 top-0 w-full py-5 px-8 text-sm font-light shadow-md'>
 			<ul className='flex items-center gap-2'>
 				<li className='font-semibold text-lg'>
-					<NavLink to='/'>Amazon</NavLink>
+					<NavLink to={`${isUserSingOut ? '/sing-in' : '/'}`}>Amazon</NavLink>
 				</li>
 				<li>
 					<NavLink
